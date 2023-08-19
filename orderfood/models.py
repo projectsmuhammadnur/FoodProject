@@ -9,7 +9,7 @@ class Food(models.Model):
     description = models.TextField(max_length=125)
     price = models.IntegerField()
     image = models.ImageField()
-    category = models.ForeignKey(Category, related_name='category-food', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='categoryfood', on_delete=models.CASCADE)
     is_active = models.BooleanField()
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -28,9 +28,9 @@ class Order(models.Model):
     lon = models.IntegerField()
     description = models.TextField(max_length=500)
     telegram_user = models.ForeignKey(TelegramUsers,
-                                      related_name='order-telegram-user',
+                                      related_name='ordertelegramuser',
                                       on_delete=models.CASCADE)
-    deliver_by = models.ForeignKey(User, related_name='order-user', on_delete=models.CASCADE)
+    deliver_by = models.ForeignKey(User, related_name='orderuser', on_delete=models.CASCADE)
     status = models.BooleanField()
     order_time = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now=True)
