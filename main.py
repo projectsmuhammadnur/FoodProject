@@ -2,8 +2,6 @@ import logging
 import asyncio
 
 from aiogram.utils import executor
-
-from bot.dispatcher import dp
 from bot.handlers import *
 
 if __name__ == '__main__':
