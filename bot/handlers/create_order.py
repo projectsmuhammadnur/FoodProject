@@ -21,13 +21,6 @@ async def order_create(msg: types.Message, state: FSMContext):
                      reply_markup=await location())
 
 
-@dp.message_handler(Text(back), state='categories')
-async def order_create(msg: types.Message, state: FSMContext):
-    await state.set_state('location')
-    await msg.answer(text="<b>Yangi lokatsiyangizni yuboring 🗺</b>", parse_mode="HTML",
-                     reply_markup=await location())
-
-
 @dp.message_handler(state='location', content_types=ContentType.LOCATION)
 async def location_handler(msg: types.Message, state: FSMContext):
     lat = msg.location.latitude
@@ -40,6 +33,13 @@ async def location_handler(msg: types.Message, state: FSMContext):
                      reply_markup=await back_categories())
     await msg.answer(text=f"<b>Bo'limlardan birini tanlang</b>", parse_mode="HTML",
                      reply_markup=await categorys_button())
+
+
+@dp.message_handler(Text(back), state='categories')
+async def order_create(msg: types.Message, state: FSMContext):
+    await state.set_state('location')
+    await msg.answer(text="<b>Yangi lokatsiyangizni yuboring 🗺</b>", parse_mode="HTML",
+                     reply_markup=await location())
 
 
 @dp.callback_query_handler(state='categories')
