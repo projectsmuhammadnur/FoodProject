@@ -30,6 +30,6 @@ async def register(msg: types.Message, state: FSMContext):
 
 
 @dp.message_handler(Text(back), state='location')
-async def back_categories(msg: types.Message, state: FSMContext):
+async def back_categories_handler(msg: types.Message, state: FSMContext):
     await msg.answer(text=f"<b>🏠 Asosiy menu</b>", parse_mode="HTML", reply_markup=await main_menu_buttons())
     await state.finish()

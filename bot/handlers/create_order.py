@@ -5,10 +5,9 @@ from aiogram.types import ContentType
 from geopy import Nominatim
 
 from bot.buttons.inline_buttons import categorys_button, product_button
-from bot.buttons.reply_buttons import location
+from bot.buttons.reply_buttons import location, back_categories
 from bot.buttons.text import order, back
 from bot.dispatcher import dp
-from bot.handlers import back_categories
 
 geolocator = Nominatim(user_agent="myGeocoder")
 
