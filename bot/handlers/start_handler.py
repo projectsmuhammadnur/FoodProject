@@ -1,9 +1,10 @@
 import requests
 from aiogram import types
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters import CommandStart
+from aiogram.dispatcher.filters import CommandStart, Text
 
 from bot.buttons.reply_buttons import phone_number, main_menu_buttons
+from bot.buttons.text import back
 from bot.dispatcher import dp
 
 
@@ -25,4 +26,10 @@ async def register(msg: types.Message, state: FSMContext):
                         "full_name": msg.from_user.full_name,
                         "username": f"@{msg.from_user.username}"})
     await msg.answer(text=f"<b>Registratsiya qilindi✅</b>", parse_mode="HTML", reply_markup=await main_menu_buttons())
+    await state.finish()
+
+
+@dp.message_handler(Text(back), state='location')
+async def back_categories(msg: types.Message, state: FSMContext):
+    await msg.answer(text=f"<b>🏠 Asosiy menu</b>", parse_mode="HTML", reply_markup=await main_menu_buttons())
     await state.finish()
