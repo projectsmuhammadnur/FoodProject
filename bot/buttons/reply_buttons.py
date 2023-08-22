@@ -23,10 +23,6 @@ async def location():
     return ReplyKeyboardMarkup(keyboard=design, resize_keyboard=True)
 
 
-async def categorys_buttons():
-    design = [[]]
-    categories = requests.get("http://127.0.0.1:8000/categories/").content.decode('utf-8')
-    for category in json.loads(categories):
-        design.append([category['name']])
-    design.append([back])
+async def back_categories():
+    design = [[back]]
     return ReplyKeyboardMarkup(keyboard=design, resize_keyboard=True, row_width=2)

@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from orderfood.models import OrderFood
+from orderfood.models import OrderFood, Food
 from rest_framework.exceptions import NotFound
-from orderfood.serializer import OrderFoodSerializer
+from orderfood.serializer import OrderFoodSerializer, FoodSerializer
 from rest_framework import status
 
 
@@ -37,7 +37,7 @@ class OrderFoodDetailView(APIView):
             instance=instance,
             data=request.data,
             partial=True
-            )
+        )
         serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -46,3 +46,10 @@ class OrderFoodDetailView(APIView):
         instance = self.get_object(kwargs.get("pk"))
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CategoryProductsView(APIView):
+    def get(self, request, *args, **kwargs):
+        instance = Food.objects.filter(category=kwargs.get("pk"))
+        serializer = FoodSerializer(instance, many=True)
+        return Response(serializer.data)
